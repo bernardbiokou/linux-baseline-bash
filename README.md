@@ -1,46 +1,109 @@
-# Linux Baseline Kit (Debian/Ubuntu)
+# Linux Baseline - Bash
 
-Linux baseline kit for sysadmins and DevOps. Bash scripts to provision a secure, standardized Debian/Ubuntu server: non-root user, SSH hardening, UFW, unattended upgrades, basic tooling.
+A minimal, dependency-free Linux baseline implemented in Bash.
 
-## Features
+This project provides a **portable and readable Linux baseline**
+to standardize systems in environments where configuration management
+tools (Ansible, Puppet, etc.) are not yet available or cannot be introduced.
 
-- Create a non-root admin user with sudo and SSH keys
-- Harden SSH (no root login, no password auth)
-- Enable UFW firewall (deny incoming by default)
-- Enable automatic security updates
-- Install essential tools (vim, htop, curl, wget, fail2ban, tree, glances)
-- Configure basic logging and time sync
+It focuses on **clarity, consistency, and transmissibility** - using only Bash and standard Linux tools.
 
-Tested on Debian 12/13 and Ubuntu 22.04/24.04 LTS.
+---
 
-## Quick start
+## Why this project exists
 
+Not every infrastructure can start with Ansible.
+
+In many real-world situations:
+- systems are legacy or constrained
+- no configuration management tool is in place
+- introducing new tooling requires time or validation
+- infrastructure is managed manually, step by step
+
+Over time, this leads to:
+- undocumented system state
+- inconsistent configurations
+- strong dependency on a single person
+- difficult handovers
+
+This project exists to **formalize a minimal Linux baseline**
+that can be understood, reviewed, and applied
+**anywhere Bash is available**.
+
+---
+
+## What you get here (Open Source)
+
+This repository contains:
+
+- ✔️ A Bash-based Linux baseline
+- ✔️ Core system standardization logic
+- ✔️ Time synchronization
+- ✔️ Logging configuration
+- ✔️ Package and update basics
+- ✔️ Explicit, readable scripts
+
+The goal is **not large-scale automation**, but **making the system state explicit and understandable**.
+
+---
+
+## When this approach makes sense
+
+This Bash baseline is well-suited when:
+
+- You need a **bootstrap baseline**
+- You work on **legacy or minimal systems**
+- You cannot yet introduce Ansible
+- You want a **transparent, auditable implementation**
+- You need zero external dependencies
+
+---
+
+## Execution and production usage
+
+This repository intentionally focuses on the **baseline logic itself**.
+
+In real production environments, safely applying a baseline usually requires:
+- controlled execution order
+- pre-flight checks
+- post-deployment validation
+- clear success and failure signals
+
+Those operational aspects are intentionally **kept outside** this repository to keep the core logic readable and auditable.
+
+A **production-oriented Bash version**, including:
+- orchestrated execution
+- validation and post-checks
+- real-world rollout guidance
+
+is available here: 👉 https://aloba.gumroad.com/l/linux-baseline-kit
+
+This version is intended for teams who want to apply
+the Bash baseline **safely and repeatably** in production environments.
+
+---
+
+## 🔁 Bash vs Ansible
+
+This project is **not a replacement** for configuration management tools.
+
+It is complementary.
+
+- **Bash baseline**  
+  → bootstrap, constrained environments, transparency
+
+- **Ansible baseline**  
+  → scalable, idempotent, long-term infrastructure management
+
+If you are ready for a configuration management approach, see the Ansible version of this baseline:
+
+👉 https://github.com/bernardbiokou/linux-baseline-ansible
+
+---
+
+## Usage
+
+```bash
 git clone https://github.com/bernardbiokou/linux-baseline-bash.git
 cd linux-baseline-bash/scripts
-
-1) Edit config.sh and paste your SSH public key
-nano config.sh
-
-2) Run script by script with root user
-sudo ./run_all.sh
-
-## Configuration
-
-Edit `scripts/config.sh`:
-
-ADMIN_USER="deploy"
-ADMIN_SSH_KEY="ssh-ed25519 AAAA... your-public-key-here"
-TIMEZONE="Europe/Paris"
-UFW_HTTP_PORT="80"
-UFW_HTTPS_PORT="443"
-
-## Output example
-
-OK Admin user deploy OK
-OK SSH: root login disabled
-OK SSH: password auth disabled
-OK UFW active
-OK Auto security updates installed
-OK SSH service active
-OK NTP sync active
-SUCCESS Linux Baseline completed!
+sudo bash script_name.sh
