@@ -107,3 +107,26 @@ If you are ready for a configuration management approach, see the Ansible versio
 git clone https://github.com/bernardbiokou/linux-baseline-bash.git
 cd linux-baseline-bash/scripts
 sudo bash script_name.sh
+```
+Always review scripts before executing them.
+This project favors explicit actions over abstraction.
+
+## Project structure
+```bash
+linux-baseline-bash/
+  scripts/         # Modular baseline components
+  README.md
+```
+The structure is intentionally simple and easy to audit.
+
+## FAQ
+Is this production-ready by itself?
+The baseline logic works.
+Production usage usually requires execution control and validation steps that depend on your environment.
+
+Why keep this repository minimal?
+Because clarity matters.
+This repository shows what the baseline does, without hiding it behind orchestration logic.
+
+## License
+MIT License - commercial use is allowed.
